@@ -1,5 +1,5 @@
 import {query }from "@/app/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
     request:Request,
@@ -16,3 +16,5 @@ export async function DELETE(
         return NextResponse.json(error);
     }
 }
+
+
