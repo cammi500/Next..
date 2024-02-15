@@ -1,9 +1,7 @@
 'use client';
 import axios from 'axios';
 import React,{useEffect,useState} from 'react';
-import { IonPage ,IonContent,IonItem, IonHeader, IonTitle, IonButton, IonButtons} from '@ionic/react';
-import { log } from 'console';
-import { NextRequest, NextResponse } from 'next/server';
+import { IonPage ,IonContent,IonItem, IonHeader, IonTitle, IonButton, IonButtons, IonToolbar, IonLabel} from '@ionic/react';
 
 export default function ProductPage(){
 
@@ -11,7 +9,6 @@ export default function ProductPage(){
 
     useEffect(()=>{
         getProducts();
-
     },[1]);
 //get
     const getProducts = async () => {
@@ -33,21 +30,43 @@ export default function ProductPage(){
             getProducts(); //after delete again show the list
         })
     }
- 
+
+    //view
+    const handleView =(item:any)=>{
+        window.location.href ="/product/view/"+item?.Id;
+    }
+    //edit
+    const handleEdit =(item:any) =>{
+        window.location.href ="/product/edit/"+item?.Id;
+    } 
 
 
 
     return (
         <IonPage>
             <IonHeader>
+                <IonToolbar>
                 <IonTitle>Product List</IonTitle>
+                </IonToolbar>
             </IonHeader>
+
             <IonContent>
                 {
                     products.map((item:any,index:number) => (
                         <IonItem key={index}>
-                            {item?.Name}
+                            <IonLabel>
+                                <b>{item?.Name}</b>
+                                <b>Buy Price :{item?.BuyPrice}</b>
+                                <b>Sell Price :{item?.SellPrice}</b>
+
+                            </IonLabel>
+
+                            {/* {item?.Name} */}
+
                             <IonButtons slot="end">
+                                <IonButton onClick={()=>handleView(item)} fill='outline' >View</IonButton>
+                                <IonButton onClick={()=>handleView(item)} fill='outline' >Edit</IonButton>
+
                                 {/* {start is left & end is right } */}
                                 <IonButton onClick={()=>handleDelete(item)}>Delete</IonButton>
                             </IonButtons>
